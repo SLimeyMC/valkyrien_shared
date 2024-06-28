@@ -1,0 +1,20 @@
+name = "valkyrien_shared"
+version = "0.1.0"
+description = "a web project"
+
+target = "javascript"
+
+[javascript]
+typescript_declarations = true
+
+[dependencies]
+gleam_stdlib = ">= 0.34.0 and < 2.0.0"
+lustre = ">= 4.3.0 and < 5.0.0"
+gleam_javascript = ">= 0.11.0 and < 1.0.0"
+gleam_json = ">= 2.0.0 and < 3.0.0"
+sketch = ">= 2.2.2 and < 3.0.0"
+plinth = ">= 0.4.6 and < 1.0.0"
+
+[dev-dependencies]
+gleeunit = ">= 1.0.0 and < 2.0.0"
+tardis = ">= 0.1.0 and < 1.0.0"
