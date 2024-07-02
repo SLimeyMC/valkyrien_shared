@@ -6,7 +6,7 @@ import lustre
 import lustre/attribute.{alt, class, href, id, rel, src, target}
 import lustre/effect
 import lustre/element.{text}
-import lustre/element/html.{a, button, div, h1, header, img, p}
+import lustre/element/html.{a, button, div, h1, header, img, nav, p}
 import lustre/event.{on_click}
 import sketch
 import sketch/lustre as sketch_lustre
@@ -14,7 +14,7 @@ import sketch/options as sketch_options
 import tardis
 
 pub fn main() {
-  let main = tardis.single("main")
+  let assert Ok(main) = tardis.single("main")
 
   let assert Ok(cache) =
     sketch_options.document()
@@ -50,7 +50,14 @@ fn update(state, msg) {
 
 fn view(state) {
   div([id("app")], [
-    header([], [html.span([], [text("Valkyrien Shared")])]),
+    nav([class("top-nav")], [
+      html.span([], [a([href("/")], [text("Valkyrien Skies!")])]),
+      html.ul([], [
+        html.li([], [a([href("aaaa")], [text("Hello!")])]),
+        html.li([], [a([href("aaaa")], [text("Hello!")])]),
+        html.li([], [a([href("aaaa")], [text("Hello!")])]),
+      ]),
+    ]),
     div([class("projects-list")], [
       div([class("project-card")], [h1([], [text("Plane 1")])]),
       div([class("project-card")], [h1([], [text("Plane 2")])]),
