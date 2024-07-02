@@ -9,7 +9,9 @@ import postcssDefineProperty from "postcss-define-property"
 export default defineConfig({
   resolve: {
     alias: {
-      "@assets": path.resolve(__dirname, "./assets"),
+      "~": process.cwd(),
+      "@": path.resolve(process.cwd(), "src"),
+      "@assets": path.resolve(process.cwd(), "src", "assets"),
     },
   },
   build: {
