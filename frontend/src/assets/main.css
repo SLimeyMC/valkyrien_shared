@@ -1,0 +1,43 @@
+:root {
+  --font-sans: 'Sofia Sans', sans-serif;
+}
+
+@font-face {
+  font-family: 'Sofia Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://fonts.cdnfonts.com/css/sofia-sans.woff) format('woff');
+}
+
+html {
+  font: 67.5%;
+  word-spacing: inherit;
+  letter-spacing: inherit;
+  line-height: 1.5rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+}
+
+.top-nav {
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  background-color: skyblue;
+  color: aliceblue;
+  
+}
+
+.projects-list {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.project-card {
+  border-radius: 24px;
+  box-shadow: 0px 0px 6px gray;
+}
