@@ -14,9 +14,6 @@ export default defineConfig({
       "@assets": path.resolve(process.cwd(), "src", "assets"),
     },
   },
-  build: {
-    sourcemap: true,
-  },
   plugins: [gleam()],
   css: {
       transformer: "postcss",

@@ -7,6 +7,7 @@ import lustre/element.{text}
 import lustre/element/html.{a, button, div, h1, header, img, nav, p}
 import tardis
 
+// Start application
 pub fn main() {
   let assert Ok(main) = tardis.single("main")
 
@@ -32,6 +33,7 @@ fn update(state, msg) {
     Decr -> #(state - 1, effect.none())
   }
 }
+
 
 fn view(state) {
   div([id("app")], [
