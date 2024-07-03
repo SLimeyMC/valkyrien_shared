@@ -10,17 +10,17 @@ pub type Message {
     content: String,
     timestamp: Time,
     edited_timestamp: Option(Time),
-    tts: Bool,
-    mention_everyone: Bool,
-    mentions: List(User),
-    mention_roles: List(Role),
-    mention_channels: Option(List(ChannelMention)),
+    //tts: Bool,
+    //mention_everyone: Bool,
+    //mentions: List(User),
+    //mention_roles: List(Role),
+    //mention_channels: Option(List(ChannelMention)),
     attachments: Option(Attachment),
     //embeds
     //reactions
-    nonce: Option(Dynamic),
-    pinned: Bool,
-    webhook_id: Option(Snowflake),
+    //nonce: Option(Dynamic),
+    //pinned: Bool,
+    //webhook_id: Option(Snowflake),
     //type_: Int,
     //activity
     //appliation
@@ -31,7 +31,14 @@ pub type Message {
     //interaction_metadata
     //interacion
     thread: Option(Channel),
-    
+    //components
+    //sticker_items
+    //stickers
+    position: Option(Int),
+    //role_subscription_data
+    //resolved
+    //poll
+    //call
   )
 }
 
