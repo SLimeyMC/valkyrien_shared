@@ -31,6 +31,7 @@ birl = { version = ">= 1.7.1 and < 2.0.0" }
 dot_env = { version = ">= 0.5.1 and < 1.0.0" }
 gleam_http = { version = ">= 3.6.0 and < 4.0.0" }
 gleam_httpc = { version = ">= 2.2.0 and < 3.0.0" }
-gleam_stdlib = { version = ">= 0.38.0 and < 1.0.0"}
+gleam_json = { version = ">= 1.0.1 and < 2.0.0" }
+gleam_stdlib = { version = ">= 0.38.0 and < 1.0.0" }
 gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
 simplifile = { version = ">= 1.7.0 and < 2.0.0" }

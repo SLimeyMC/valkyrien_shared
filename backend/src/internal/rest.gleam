@@ -1,13 +1,52 @@
+import gleam/dict
+import gleam/dynamic
+import gleam/http.{Get}
+import gleam/http/request
+import gleam/http/response
+import gleam/httpc
 import gleam/int
-import gleam/list
+import gleam/json
 import gleam/option.{type Option, None, Some, map}
-import gleam/string_builder.{type StringBuilder, append, from_string}
+import gleam/result
+import gleam/string_builder.{type StringBuilder, append, from_string, to_string}
 import gleam/uri.{query_to_string}
-import model/request_param.{type GetChannelMessagesRequest}
+import gleeunit/should
+import model/discord.{type Snowflake}
+import model/request_param.{
+  type GetChannelMessagesRequest, GetChannelMessagesRequest,
+}
+import internal/model
 
 const api_version = 10
 
 const endpoint_discord = "https://discord.com/api/v"
+
+pub fn fetch_discord_message(
+  channel_id: Int,
+  around: Option(Snowflake),
+  after: Option(Snowflake),
+  before: Option(Snowflake),
+  limit: Option(Int),
+) {
+  // get valkyrien skies' showcase endpoint
+  let endpoint =
+    get_channel_endpoint(channel_id)
+    |> get_messages_endpoint()
+    |> get_channel_message_request_query(GetChannelMessagesRequest(
+      around,
+      after,
+      before,
+      limit,
+    ))
+    |> to_string()
+
+  let assert Ok(request) = request.to(endpoint)
+
+  use response <- result.try(httpc.send(request))
+
+  response.body
+  |> json.decode(dynamic.list(of: model.message_decoder))
+}
 
 pub fn get_channel_endpoint(channel_id: Int) {
   {
