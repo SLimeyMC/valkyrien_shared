@@ -1,6 +1,5 @@
 import birl.{type Time}
 import gleam/option.{type Option}
-import gleam/dynamic.{type Dynamic}
 
 pub type Message {
   Message(
@@ -15,7 +14,7 @@ pub type Message {
     //mentions: List(User),
     //mention_roles: List(Role),
     //mention_channels: Option(List(ChannelMention)),
-    attachments: Option(Attachment),
+    attachments: Option(List(Attachment)),
     //embeds
     //reactions
     //nonce: Option(Dynamic),
@@ -25,9 +24,9 @@ pub type Message {
     //activity
     //appliation
     //application
-    message_reference: Option(MessageReference),
+    //message_reference: Option(MessageReference),
     flags: Option(Int),
-    referenced_message: Option(Message),
+    //referenced_message: Option(Message),
     //interaction_metadata
     //interacion
     thread: Option(Channel),
@@ -42,11 +41,13 @@ pub type Message {
   )
 }
 
-pub type Snowflake =
-  String
+pub type Snowflake {
+  Snowflake(String)
+}
 
-pub type Hash =
-  String
+pub type Hash {
+  Hash(String)
+}
 
 pub type Channel {
   Channel(
