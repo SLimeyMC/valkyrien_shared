@@ -3,8 +3,6 @@ import { defineConfig } from "@farmfe/core";
 import gleam from "vite-gleam";
 import postCss from "@farmfe/js-plugin-postcss"
 
-__dirname
-
 export default defineConfig({
   compilation: {
     resolve: {

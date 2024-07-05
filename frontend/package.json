@@ -26,6 +26,7 @@
     "@farmfe/core": "^1.2.5",
     "@farmfe/js-plugin-postcss": "^1.7.0",
     "postcss-compact-mq": "^0.2.1",
-    "postcss-define-property": "^0.5.0"
+    "postcss-define-property": "^0.5.0",
+    "ts-node": "^10.9.2"
   }
 }
