@@ -7,6 +7,7 @@ import lustre/attribute.{alt, class, href, id, rel, src, target}
 import lustre/effect.{type Effect}
 import lustre/element.{text}
 import lustre/element/html.{a, button, div, h1, header, img, nav, p}
+import lustre/element/svg
 import modem
 import router/route.{
   type Route, AboutUs, Auth, AuthIndex, Discord, Error404, Me, MeIndex, Profile,
@@ -52,18 +53,7 @@ fn view(state) {
         html.li([], [a([href("/auth")], [text("Authenticate")])]),
       ]),
     ]),
-    case state {
-      RouteIndex ->
-        div([class("projects-list")], [
-          div([class("project-card")], [h1([], [text("Plane 1")])]),
-          div([class("project-card")], [h1([], [text("Plane 2")])]),
-          div([class("project-card")], [h1([], [text("Plane 3")])]),
-          div([class("project-card")], [h1([], [text("Plane 4")])]),
-        ])
-      AboutUs -> html.h1([], [html.text("About Us")])
-      Auth(AuthIndex) -> html.h1([], [html.text("Auth")])
-      Error404 -> html.h1([], [html.text("Error404")])
-      _ -> html.h1([], [html.text("wuh what?")])
-    },
+    state
+      |> route.to_lustre(),
   ])
 }
