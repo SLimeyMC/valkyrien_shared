@@ -1,3 +1,6 @@
+import gleam/dict.{type Dict, filter, keys}
+import gleam/list.{first}
+import gleam/string.{contains, split}
 import gleam/uri.{type Uri}
 import lustre
 import lustre/attribute.{alt, class, href, id, rel, src, target}
@@ -7,7 +10,7 @@ import lustre/element/html.{a, button, div, h1, header, img, nav, p}
 import modem
 import router/route.{
   type Route, AboutUs, Auth, AuthIndex, Discord, Error404, Me, MeIndex, Profile,
-  RouteIndex, Settings,
+  RouteIndex, Settings, route_encode,
 }
 import tardis
 
@@ -24,17 +27,8 @@ pub fn main() {
 fn init(state) {
   let assert Ok(initial_uri) = modem.initial_uri()
   #(
-    case initial_uri.path {
-      "/" -> RouteIndex
-      "/about_us" -> AboutUs
-      "/auth" -> Auth(AuthIndex)
-      "/auth/discord" -> Auth(Discord)
-      "/me" -> Me(MeIndex)
-      "/me/profile" -> Me(Profile)
-      "/me/settings" -> Me(Settings)
-      _ -> Error404
-    },
-    modem.init(on_url_change),
+    route_encode(initial_uri),
+    modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }),
   )
 }
 
@@ -45,19 +39,6 @@ pub type Msg {
 fn update(state, msg) {
   case msg {
     OnRouteChange(route) -> #(route, effect.none())
-  }
-}
-
-pub fn on_url_change(uri: Uri) {
-  case uri.path_segments(uri.path) {
-    [] -> OnRouteChange(RouteIndex)
-    ["about_us"] -> OnRouteChange(AboutUs)
-    ["auth"] -> OnRouteChange(Auth(AuthIndex))
-    ["auth", "discord"] -> OnRouteChange(Auth(Discord))
-    ["me"] -> OnRouteChange(Me(MeIndex))
-    ["me", "profile"] -> OnRouteChange(Me(Profile))
-    ["me", "settings"] -> OnRouteChange(Me(Settings))
-    _ -> OnRouteChange(Error404)
   }
 }
 
