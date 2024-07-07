@@ -14,7 +14,7 @@ pub fn to_lustre() {
           attribute.pattern("^(?!.*\\.\\.)[a-z\\d_.]{2,32}$"),
           attribute.attribute(
             "title",
-            "Username must be 2-32 characters long, may contains lowercase letters, numbers, periods (.), or underscores (_), but cannot start with two consecutive periods",
+            "Username must be 2-32 characters long, containings lowercase letters, numbers, periods (.), or underscores (_), but cannot start with two consecutive periods",
           ),
           attribute.placeholder("your name"),
           attribute.required(True),
