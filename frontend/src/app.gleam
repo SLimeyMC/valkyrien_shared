@@ -54,6 +54,6 @@ fn view(state) {
       ]),
     ]),
     state
-      |> route.to_lustre(),
+      |> route.to_view(),
   ])
 }

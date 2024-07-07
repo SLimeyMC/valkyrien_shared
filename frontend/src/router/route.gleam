@@ -24,7 +24,7 @@ pub type MeRoute {
   Settings
 }
 
-pub fn to_lustre(state: Route) {
+pub fn to_view(state: Route) {
   case state {
     RouteIndex -> index.to_lustre()
     AboutUs -> about_us.to_lustre()
