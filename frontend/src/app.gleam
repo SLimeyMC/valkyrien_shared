@@ -2,6 +2,7 @@ import gleam/dict.{type Dict, filter, keys}
 import gleam/list.{first}
 import gleam/string.{contains, split}
 import gleam/uri.{type Uri}
+import auth/auth.{type User, Guest}
 import lustre
 import lustre/attribute.{alt, class, href, id, rel, src, target}
 import lustre/effect.{type Effect}
@@ -25,10 +26,14 @@ pub fn main() {
   |> tardis.activate(with: main)
 }
 
+pub type Model {
+  Model(current_route: Route, current_user: User)
+}
+
 fn init(state) {
   let assert Ok(initial_uri) = modem.initial_uri()
   #(
-    route_encode(initial_uri),
+    Model(route_encode(initial_uri), Guest),
     modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }),
   )
 }
