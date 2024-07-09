@@ -1,6 +1,9 @@
 import lustre/attribute.{alt, class, href, id, rel, src, target}
 import lustre/element/html.{a, button, div, h1, header, img, nav, p, text}
 
+// Add state for added security
+const discord_oauth2 = "https://discord.com/oauth2/authorize?client_id=1258022001730125935&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fauth%2Fdiscord&scope=messages.read+email+guilds+identify"
+
 pub fn to_lustre() {
   div([class("hero")], [
     div([class("auth")], [
@@ -11,7 +14,7 @@ pub fn to_lustre() {
           attribute.type_("text"),
           id("name"),
           attribute.name("name"),
-          attribute.pattern("^(?!.*\\.\\.)[a-z\\d_.]{2,32}$"),
+          attribute.pattern("^(?!.*\\.\\.)[\\w\\d_.]{2,32}$"),
           attribute.attribute(
             "title",
             "Username must be 2-32 characters long, containings lowercase letters, numbers, periods (.), or underscores (_), but cannot start with two consecutive periods",
@@ -39,7 +42,7 @@ pub fn to_lustre() {
       ]),
       html.details([], [
         html.summary([], [text("More option")]),
-        html.div([], [a([href("check")], [text("Discord")])]),
+        html.div([], [a([href(discord_oauth2)], [text("Discord")])]),
       ]),
     ]),
   ])

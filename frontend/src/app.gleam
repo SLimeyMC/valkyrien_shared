@@ -19,7 +19,7 @@ import tardis
 // Start application
 pub fn main() {
   let assert Ok(main) = tardis.single("main")
-
+  
   lustre.application(init, update, view)
   |> tardis.wrap(with: main)
   |> lustre.start("#app", 0)
@@ -40,6 +40,7 @@ fn init(state) {
 
 pub type Msg {
   OnRouteChange(Route)
+  OnLogged(with: Int)
 }
 
 fn update(state, msg) {
