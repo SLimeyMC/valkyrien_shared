@@ -1,8 +1,8 @@
+import auth/auth.{type User, Guest,LoggedIn}
 import gleam/dict.{type Dict, filter, keys}
 import gleam/list.{first}
 import gleam/string.{contains, split}
 import gleam/uri.{type Uri}
-import auth/auth.{type User, Guest}
 import lustre
 import lustre/attribute.{alt, class, href, id, rel, src, target}
 import lustre/effect.{type Effect}
@@ -19,7 +19,7 @@ import tardis
 // Start application
 pub fn main() {
   let assert Ok(main) = tardis.single("main")
-  
+
   lustre.application(init, update, view)
   |> tardis.wrap(with: main)
   |> lustre.start("#app", 0)
@@ -45,7 +45,8 @@ pub type Msg {
 
 fn update(state, msg) {
   case msg {
-    OnRouteChange(route) -> #(route, effect.none())
+    OnRouteChange(route) -> #(Model(..state, current_route: route), effect.none())
+    OnLogged(with) -> #(Model(..state, current_user: LoggedIn(with)), effect.none())
   }
 }
 
@@ -59,7 +60,7 @@ fn view(state) {
         html.li([], [a([href("/auth")], [text("Authenticate")])]),
       ]),
     ]),
-    state
+    state.current_route
       |> route.to_view(),
   ])
 }
