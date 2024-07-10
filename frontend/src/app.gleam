@@ -34,7 +34,7 @@ fn init(state) {
   let assert Ok(initial_uri) = modem.initial_uri()
   #(
     Model(route_encode(initial_uri), Guest),
-    modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }),
+    effect.batch([modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }), ]),
   )
 }
 
@@ -60,7 +60,7 @@ fn view(state) {
         html.li([], [a([href("/auth")], [text("Authenticate")])]),
       ]),
     ]),
-    state.current_route
+    state
       |> route.to_view(),
   ])
 }

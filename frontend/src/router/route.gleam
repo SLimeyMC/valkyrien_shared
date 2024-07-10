@@ -1,5 +1,6 @@
 import gleam/uri.{type Uri}
 import pages/about_us
+import pages/auth/auth_discord
 import pages/auth/auth_index
 import pages/error_404
 import pages/index
@@ -24,8 +25,15 @@ pub type MeRoute {
   Settings
 }
 
-pub fn to_view(state: Route) {
+pub fn update(state: Model) {
   case state {
+    Auth(Discord) -> Nil
+    _ -> Nil
+  }
+}
+
+pub fn to_view(state: Model) {
+  case state.current_route {
     RouteIndex -> index.to_lustre()
     AboutUs -> about_us.to_lustre()
     Auth(AuthIndex) -> auth_index.to_lustre()
