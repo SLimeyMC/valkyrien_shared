@@ -1,6 +1,6 @@
 import auth/auth.{type User, Guest,LoggedIn}
 import gleam/dict.{type Dict, filter, keys}
-import gleam/list.{first}
+import gleam/list.{first, append}
 import gleam/string.{contains, split}
 import gleam/uri.{type Uri}
 import lustre
@@ -32,15 +32,25 @@ pub type Model {
 
 fn init(state) {
   let assert Ok(initial_uri) = modem.initial_uri()
+  let effects = list.wrap(modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }))
+  |> append(
+    case initial_uri.path {
+        "/auth/discord" -> effect.from(fn (dispatch) {
+          let res = auth_discord.handle_uri(uri)
+          dispatch(Msg(res))
+        })
+        _ -> effect.none()
+    }
+  )
   #(
     Model(route_encode(initial_uri), Guest),
-    effect.batch([modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }), ]),
+    effect.batch(effects),
   )
 }
 
 pub type Msg {
   OnRouteChange(Route)
-  OnLogged(with: Int)
+  OnLogged(with: User)
 }
 
 fn update(state, msg) {

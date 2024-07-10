@@ -16,7 +16,7 @@ pub type Route {
 
 pub type AuthRoute {
   AuthIndex
-  Discord
+  Discord(query: Option(String))
 }
 
 pub type MeRoute {
@@ -47,7 +47,7 @@ pub fn route_encode(uri: Uri) {
     [] -> RouteIndex
     ["about_us"] -> AboutUs
     ["auth"] -> Auth(AuthIndex)
-    ["auth", "discord"] -> Auth(Discord)
+    ["auth", "discord"] -> Auth(Discord(uri.query))
     ["me"] -> Me(MeIndex)
     ["me", "profile"] -> Me(Profile)
     ["me", "settings"] -> Me(Settings)
