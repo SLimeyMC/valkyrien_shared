@@ -16,7 +16,7 @@ pub type Route {
 
 pub type AuthRoute {
   AuthIndex
-  Discord(query: Option(String))
+  Discord
 }
 
 pub type MeRoute {
@@ -37,8 +37,9 @@ pub fn to_view(state: Model) {
     RouteIndex -> index.to_lustre()
     AboutUs -> about_us.to_lustre()
     Auth(AuthIndex) -> auth_index.to_lustre()
+    Auth(Discord(_)) -> auth_discord.to_lustre()
     Error404 -> error_404.to_lustre()
-    _ -> invalid_path.to_lustre()
+    _ -> invalid_path.to_lustre(state)
   }
 }
 
@@ -47,7 +48,7 @@ pub fn route_encode(uri: Uri) {
     [] -> RouteIndex
     ["about_us"] -> AboutUs
     ["auth"] -> Auth(AuthIndex)
-    ["auth", "discord"] -> Auth(Discord(uri.query))
+    ["auth", "discord"] -> Auth(Discord)
     ["me"] -> Me(MeIndex)
     ["me", "profile"] -> Me(Profile)
     ["me", "settings"] -> Me(Settings)
