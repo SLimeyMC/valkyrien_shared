@@ -4,6 +4,7 @@ import gleam/list.{first, append}
 import gleam/string.{contains, split}
 import gleam/uri.{type Uri}
 import lustre
+import gleam/javascript/promise
 import lustre/attribute.{alt, class, href, id, rel, src, target}
 import lustre/effect.{type Effect}
 import lustre/element.{text}
@@ -35,9 +36,15 @@ fn init(state) {
   let effects = list.wrap(modem.init(fn(uri: Uri) { OnRouteChange(route.route_encode(uri)) }))
   |> append(
     case initial_uri.path {
-        "/auth/discord" -> effect.from(fn (dispatch) {
-          let res = auth_discord.handle_uri(uri)
-          dispatch(Msg(res))
+        "/auth/discord" -> effect.from(fn(dispatch) {
+          auth_discord.handle_uri() 
+           |> promise.tap(fn(res) {
+            case res {
+              Ok(session) -> dispatch(Msg(OnLogged(session)))
+              // TODO: Error should be communicated to the user
+              Error(_) -> effect.none()
+            }
+          })
         })
         _ -> effect.none()
     }
