@@ -11,7 +11,7 @@ import lustre/element.{text}
 import lustre/element/html.{a, button, div, h1, header, img, nav, p}
 import lustre/element/svg
 import modem
-import router/route.{
+import transponder/route.{
   type Route, AboutUs, Auth, AuthIndex, Discord, Error404, Me, MeIndex, Profile,
   RouteIndex, Settings, route_encode,
 }
