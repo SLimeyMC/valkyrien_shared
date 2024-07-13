@@ -1,7 +1,7 @@
 import gleam/uri.{type Uri}
 import pages/about_us
-import pages/auth/auth_discord
-import pages/auth/auth_index
+import pages/auth_discord
+import pages/auth_index
 import pages/error_404
 import pages/index
 import pages/invalid_path
@@ -37,7 +37,7 @@ pub fn to_view(state: Model) {
     RouteIndex -> index.to_lustre()
     AboutUs -> about_us.to_lustre()
     Auth(AuthIndex) -> auth_index.to_lustre()
-    Auth(Discord(_)) -> auth_discord.to_lustre()
+    Auth(Discord) -> auth_discord.to_lustre()
     Error404 -> error_404.to_lustre()
     _ -> invalid_path.to_lustre(state)
   }
