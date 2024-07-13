@@ -23,12 +23,39 @@ body {
 }
 
 .top-nav {
+  position: fixed;
+  top: 0;
+  width: 97.5%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   padding: 1em;
   background-color: skyblue;
   color: aliceblue;
   
+  & > ul {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+      gap: 2em;
+    }
+  
+  & > span {
+    align-self: center;
+  }
+}
+
+.hero {
+  width: 100vw;
+  height: 100dvh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.auth {
+  min-width: 20em;
+  text-align: center;
 }
 
 .projects-list {
